@@ -1,0 +1,24 @@
+{
+  "name": "newspack-tecnavia-integration",
+  "version": "1.0.0",
+  "description": "Plugin to integrate Newspack with Tecnavia.",
+  "author": "Automattic",
+  "scripts": {
+    "start": "npm ci --legacy-peer-deps && npm run watch",
+    "build": "npm run clean && newspack-scripts wp-scripts build",
+    "watch": "npm run clean && newspack-scripts wp-scripts start",
+    "test": "newspack-scripts test",
+    "lint:js": "newspack-scripts wp-scripts lint-js '**/{src,includes}/**/*.{js,jsx,ts,tsx}'",
+    "lint:php": "./vendor/bin/phpcs",
+    "lint:php:staged": "./vendor/bin/phpcs --filter=GitStaged",
+    "fix:php": "./vendor/bin/phpcbf"
+  },
+  "devDependencies": {
+    "@rushstack/eslint-patch": "^1.10.4",
+    "eslint": "^8.57.1",
+    "newspack-scripts": "^5.5.2"
+  },
+  "dependencies": {
+    "clean": "^4.0.2"
+  }
+}
