@@ -25,6 +25,13 @@ class WC_Settings_Option_Tab extends WC_Settings_Page {
 	private $e_edition_endpoint_url_option;
 
 	/**
+	 * Newspack Tecnavia Integration e-edition endpoint link label.
+	 *
+	 * @var string
+	 */
+	private $e_edition_endpoint_link_label;
+
+	/**
 	 * Newspack Tecnavia Integration Tecnavia URL.
 	 *
 	 * @var string
@@ -36,12 +43,14 @@ class WC_Settings_Option_Tab extends WC_Settings_Page {
 	 *
 	 * @param string $e_edition_endpoint_url_option e-edition endpoint URL option name.
 	 * @param string $technavia_url_option Tecnavia URL option name.
+	 * @param string $e_edition_endpoint_link_label e-edition endpoint link label option name.
 	 */
-	public function __construct( $e_edition_endpoint_url_option, $technavia_url_option ) {
+	public function __construct( $e_edition_endpoint_url_option, $technavia_url_option, $e_edition_endpoint_link_label ) {
 		/**
 		 * Initialize constants.
 		 */
 		$this->e_edition_endpoint_url_option = $e_edition_endpoint_url_option;
+		$this->e_edition_endpoint_link_label = $e_edition_endpoint_link_label;
 		$this->technavia_url_option          = $technavia_url_option;
 
 		/**
@@ -88,6 +97,14 @@ class WC_Settings_Option_Tab extends WC_Settings_Page {
 				'desc_tip' => true,
 				'id'       => $this->e_edition_endpoint_url_option,
 				'css'      => 'min-width:600px;',
+			),
+			array(
+				'title'    => __( 'E-edition Endpoint Link Label', 'newspack-tecnavia-integration' ),
+				'type'     => 'text',
+				'desc'     => __( 'Add the label for the e-edition endpoint link.', 'newspack-tecnavia-integration' ),
+				'desc_tip' => true,
+				'id'       => $this->e_edition_endpoint_link_label,
+				'css'      => 'min-width:300px;',
 			),
 			array(
 				'title'    => __( 'Tecnavia URL', 'newspack-tecnavia-integration' ),

@@ -16,8 +16,9 @@ use Newspack\TecnaviaIntegration\WooCommerce\Settings\WC_Settings_Option_Tab;
  */
 class Settings {
 
-	const E_EDITION_ENDPOINT_URL_OPTION = 'np_wc_tecnavia_e_edition_endpoint_url';
-	const TECNAVIA_URL_OPTION           = 'np_wc_tecnavia_url';
+	const E_EDITION_ENDPOINT_URL_OPTION  = 'np_wc_tecnavia_e_edition_endpoint_url';
+	const E_EDITION_ENDPOINT_LINK_LABEL  = 'np_wc_tecnavia_e_edition_endpoint_link_label';
+	const TECNAVIA_URL_OPTION            = 'np_wc_tecnavia_url';
 
 	/**
 	 * Runs the initialization.
@@ -37,7 +38,7 @@ class Settings {
 	 */
 	public static function add_wc_settings_page( $settings ) {
 		$settings[] = include_once __DIR__ . '/woocommerce/class-wc-settings-option-tab.php';
-		new WC_Settings_Option_Tab( self::E_EDITION_ENDPOINT_URL_OPTION, self::TECNAVIA_URL_OPTION );
+		new WC_Settings_Option_Tab( self::E_EDITION_ENDPOINT_URL_OPTION, self::TECNAVIA_URL_OPTION, self::E_EDITION_ENDPOINT_LINK_LABEL );
 		return $settings;
 	}
 
@@ -50,7 +51,7 @@ class Settings {
 	public static function add_wc_account_menu_item( $items ) {
 		// Create the e-edition link.
 		$e_edition_link = array(
-			'e-edition' => __( 'E-Edition', 'newspack-tecnavia-integration' ),
+			'e-edition' => get_option( self::E_EDITION_ENDPOINT_LINK_LABEL ),
 		);
 
 		// Add the e-edition link to the account menu at the second last position.
