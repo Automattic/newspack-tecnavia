@@ -16,9 +16,13 @@ use Newspack\TecnaviaIntegration\WooCommerce\Settings\WC_Settings_Option_Tab;
  */
 class Settings {
 
+	/**
+	 * Option names.
+	 */
 	const E_EDITION_ENDPOINT_URL_OPTION  = 'np_wc_tecnavia_e_edition_endpoint_url';
 	const E_EDITION_ENDPOINT_LINK_LABEL  = 'np_wc_tecnavia_e_edition_endpoint_link_label';
 	const TECNAVIA_URL_OPTION            = 'np_wc_tecnavia_url';
+	const FALLBACK_PAGE_ID_OPTION        = 'np_wc_tecnavia_fallback_page_id';
 
 	/**
 	 * Runs the initialization.
@@ -37,8 +41,18 @@ class Settings {
 	 * @return array
 	 */
 	public static function add_wc_settings_page( $settings ) {
+		// Add the Newspack-Tecnavia settings page.
 		$settings[] = include_once __DIR__ . '/woocommerce/class-wc-settings-option-tab.php';
-		new WC_Settings_Option_Tab( self::E_EDITION_ENDPOINT_URL_OPTION, self::TECNAVIA_URL_OPTION, self::E_EDITION_ENDPOINT_LINK_LABEL );
+
+		// Initialize the settings page.
+		new WC_Settings_Option_Tab(
+			self::E_EDITION_ENDPOINT_URL_OPTION,
+			self::TECNAVIA_URL_OPTION,
+			self::E_EDITION_ENDPOINT_LINK_LABEL,
+			self::FALLBACK_PAGE_ID_OPTION
+		);
+
+		// Return the settings.
 		return $settings;
 	}
 

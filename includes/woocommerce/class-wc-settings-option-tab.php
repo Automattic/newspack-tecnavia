@@ -39,19 +39,33 @@ class WC_Settings_Option_Tab extends WC_Settings_Page {
 	private $technavia_url_option;
 
 	/**
+	 * Newspack Tecnavia Integration fallback page ID.
+	 *
+	 * @var string
+	 */
+	private $fallback_page_id_option;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param string $e_edition_endpoint_url_option e-edition endpoint URL option name.
 	 * @param string $technavia_url_option Tecnavia URL option name.
 	 * @param string $e_edition_endpoint_link_label e-edition endpoint link label option name.
+	 * @param string $fallback_page_id_option Fallback page ID option name.
 	 */
-	public function __construct( $e_edition_endpoint_url_option, $technavia_url_option, $e_edition_endpoint_link_label ) {
+	public function __construct(
+		$e_edition_endpoint_url_option,
+		$technavia_url_option,
+		$e_edition_endpoint_link_label,
+		$fallback_page_id_option
+	) {
 		/**
 		 * Initialize constants.
 		 */
 		$this->e_edition_endpoint_url_option = $e_edition_endpoint_url_option;
 		$this->e_edition_endpoint_link_label = $e_edition_endpoint_link_label;
 		$this->technavia_url_option          = $technavia_url_option;
+		$this->fallback_page_id_option       = $fallback_page_id_option;
 
 		/**
 		 * Define the tab name and label
@@ -113,6 +127,13 @@ class WC_Settings_Option_Tab extends WC_Settings_Page {
 				'desc_tip' => true,
 				'id'       => $this->technavia_url_option,
 				'css'      => 'min-width:600px;',
+			),
+			array(
+				'title'    => __( 'Fallback Page', 'newspack-tecnavia-integration' ),
+				'type'     => 'single_select_page',
+				'desc'     => __( 'Select the fallback page.', 'newspack-tecnavia-integration' ),
+				'desc_tip' => true,
+				'id'       => $this->fallback_page_id_option,
 			),
 			array(
 				'type' => 'sectionend',
