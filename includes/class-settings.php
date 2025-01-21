@@ -40,7 +40,7 @@ class Settings {
 	 * @param array $settings Array of WooCommerce settings pages.
 	 * @return array
 	 */
-	public function add_wc_settings_page( $settings ) {
+	public static function add_wc_settings_page( $settings ) {
 		// Add the Newspack-Tecnavia settings page.
 		$settings[] = include_once __DIR__ . '/woocommerce/class-wc-settings-option-tab.php';
 
@@ -62,7 +62,7 @@ class Settings {
 	 * @param array $items Array of WooCommerce account menu items.
 	 * @return array
 	 */
-	public function add_wc_account_menu_item( $items ) {
+	public static function add_wc_account_menu_item( $items ) {
 		// Create the e-edition link.
 		$e_edition_link = array(
 			'e-edition' => get_option( self::E_EDITION_ENDPOINT_LINK_LABEL ),
@@ -83,7 +83,7 @@ class Settings {
 	 * @param string $permalink Permalink of the endpoint.
 	 * @return string
 	 */
-	public function add_wc_endpoint_url( $url, $endpoint, $value, $permalink ) {
+	public static function add_wc_endpoint_url( $url, $endpoint, $value, $permalink ) {
 		// Check if the endpoint is the e-edition.
 		if ( $endpoint !== 'e-edition' ) {
 			return $url;
