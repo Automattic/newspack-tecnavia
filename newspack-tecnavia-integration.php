@@ -8,7 +8,7 @@
  * License: GPL2
  * Text Domain: newspack-tecnavia-integration
  *
- * @package Newspack_Tecnavia_Integration
+ * @package Newspack\TecnaviaIntegration
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -26,3 +26,5 @@ if ( ! defined( 'NEWSPACK_TECNAVIA_INTEGRATION_PLUGIN_DIR' ) ) {
 }
 
 require_once 'vendor/autoload.php';
+
+Newspack\TecnaviaIntegration\Initializer::init();
