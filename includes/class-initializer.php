@@ -22,6 +22,7 @@ class Initializer {
 		Settings::init();
 		User::init();
 		Redirection::init();
+		REST_Controller::init();
 	}
 
 	/**
