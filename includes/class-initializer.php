@@ -21,6 +21,7 @@ class Initializer {
 
 		Settings::init();
 		User::init();
+		Redirection::init();
 	}
 
 	/**
