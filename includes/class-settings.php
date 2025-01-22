@@ -65,7 +65,7 @@ class Settings {
 	public static function add_wc_account_menu_item( $items ) {
 		// Create the e-edition link.
 		$e_edition_link = array(
-			'e-edition' => get_option( self::E_EDITION_ENDPOINT_LINK_LABEL ),
+			'e-edition' => self::get_e_edition_endpoint_link_label(),
 		);
 
 		// Add the e-edition link to the account menu at the second last position.
@@ -89,15 +89,59 @@ class Settings {
 			return $url;
 		}
 
-		// Get the Tecnavia URL.
-		$technavia_url = site_url( get_option( self::E_EDITION_ENDPOINT_URL_OPTION ) );
+		// Get the e-edition URL.
+		$e_edition_url = self::get_e_edition_endpoint_url();
 
-		// Bail if the Tecnavia URL is not set.
-		if ( empty( $technavia_url ) ) {
+		// Bail if the e-edition URL is empty.
+		if ( empty( $e_edition_url ) ) {
 			return $url;
 		}
 
-		// Return the Tecnavia URL.
-		return $technavia_url;
+		return $e_edition_url;
+	}
+
+	/**
+	 * Get the e-edition endpoint URL.
+	 *
+	 * @return string
+	 */
+	public static function get_e_edition_url_endpoint() {
+		return get_option( self::E_EDITION_ENDPOINT_URL_OPTION );
+	}
+
+	/**
+	 * Get the e-edition endpoint URL.
+	 *
+	 * @return string
+	 */
+	public static function get_e_edition_endpoint_url() {
+		return site_url( self::get_e_edition_url_endpoint() );
+	}
+
+	/**
+	 * Get the e-edition endpoint link label.
+	 *
+	 * @return string
+	 */
+	public static function get_e_edition_endpoint_link_label() {
+		return get_option( self::E_EDITION_ENDPOINT_LINK_LABEL );
+	}
+
+	/**
+	 * Get the Tecnavia URL.
+	 *
+	 * @return string
+	 */
+	public static function get_tecnavia_url() {
+		return esc_url_raw( get_option( self::TECNAVIA_URL_OPTION ) );
+	}
+
+	/**
+	 * Get the fallback page ID.
+	 *
+	 * @return int
+	 */
+	public static function get_fallback_page_id() {
+		return get_option( self::FALLBACK_PAGE_ID_OPTION );
 	}
 }
