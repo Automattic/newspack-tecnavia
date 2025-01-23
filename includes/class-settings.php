@@ -23,6 +23,15 @@ class Settings {
 	const E_EDITION_ENDPOINT_LINK_LABEL  = 'np_wc_tecnavia_e_edition_endpoint_link_label';
 	const TECNAVIA_URL_OPTION            = 'np_wc_tecnavia_url';
 	const FALLBACK_PAGE_ID_OPTION        = 'np_wc_tecnavia_fallback_page_id';
+	const TECNAVIA_PERMISSIONS_OPTION    = 'np_wc_tecnavia_permissions';
+
+	/**
+	 * Access settings constants.
+	 */
+	const NP_TECNAVIA_ACCESS_SETTING_ALL_REGISTERED_USERS_KEY  = 'all_registered_users';
+	const NP_TECNAVIA_ACCESS_SETTING_ALLOWED_ROLES_KEY         = 'allowed_roles';
+	const NP_TECNAVIA_ACCESS_SETTING_ALLOWED_SUBSCRIPTIONS_KEY = 'allowed_subscription_products';
+	const NP_TECNAVIA_ACCESS_SETTING_ALLOWED_MEMBERSHIPS_KEY   = 'allowed_memberships';
 
 	/**
 	 * Runs the initialization.
@@ -49,7 +58,12 @@ class Settings {
 			self::E_EDITION_ENDPOINT_URL_OPTION,
 			self::TECNAVIA_URL_OPTION,
 			self::E_EDITION_ENDPOINT_LINK_LABEL,
-			self::FALLBACK_PAGE_ID_OPTION
+			self::FALLBACK_PAGE_ID_OPTION,
+			self::TECNAVIA_PERMISSIONS_OPTION,
+			self::NP_TECNAVIA_ACCESS_SETTING_ALL_REGISTERED_USERS_KEY,
+			self::NP_TECNAVIA_ACCESS_SETTING_ALLOWED_ROLES_KEY,
+			self::NP_TECNAVIA_ACCESS_SETTING_ALLOWED_SUBSCRIPTIONS_KEY,
+			self::NP_TECNAVIA_ACCESS_SETTING_ALLOWED_MEMBERSHIPS_KEY
 		);
 
 		// Return the settings.
@@ -143,5 +157,14 @@ class Settings {
 	 */
 	public static function get_fallback_page_id() {
 		return get_option( self::FALLBACK_PAGE_ID_OPTION );
+	}
+
+	/**
+	 * Get the Tecnavia permissions.
+	 *
+	 * @return array
+	 */
+	public static function get_tecnavia_access_permissions() {
+		return get_option( self::TECNAVIA_PERMISSIONS_OPTION );
 	}
 }
