@@ -125,10 +125,10 @@ class WC_Settings_Option_Tab extends WC_Settings_Page {
 		 * Ids are constructed to be used as array keys in the permissions option.
 		 * It will store the access settings as an array under a single option ( $tecnavia_permissions_option ).
 		 */
-		$all_registered_users_id  = $this->tecnavia_permissions_option . '[' . Settings::ALL_REGISTERED_USERS_ACCESS_KEY . ']';
-		$allowed_roles_id         = $this->tecnavia_permissions_option . '[' . Settings::ALLOWED_ROLES_ACCESS_KEY . ']';
-		$allowed_subscription_id  = $this->tecnavia_permissions_option . '[' . Settings::ALLOWED_SUBSCRIPTIONS_ACCESS_KEY . ']';
-		$allowed_memberships_id   = $this->tecnavia_permissions_option . '[' . Settings::ALLOWED_MEMBERSHIPS_ACCESS_KEY . ']';
+		$all_registered_users_id  = sprintf( '%s[%s]', $this->tecnavia_permissions_option, Settings::ALL_REGISTERED_USERS_ACCESS_KEY );
+		$allowed_roles_id         = sprintf( '%s[%s]', $this->tecnavia_permissions_option, Settings::ALLOWED_ROLES_ACCESS_KEY );
+		$allowed_subscription_id  = sprintf( '%s[%s]', $this->tecnavia_permissions_option, Settings::ALLOWED_SUBSCRIPTIONS_ACCESS_KEY );
+		$allowed_memberships_id   = sprintf( '%s[%s]', $this->tecnavia_permissions_option, Settings::ALLOWED_MEMBERSHIPS_ACCESS_KEY );
 
 		/**
 		 * Settings for the Tecnavia Integration
