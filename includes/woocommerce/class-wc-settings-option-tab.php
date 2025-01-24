@@ -7,6 +7,7 @@
 
 namespace Newspack\TecnaviaIntegration\WooCommerce\Settings;
 
+use Newspack\TecnaviaIntegration\Settings;
 use WC_Admin_Settings;
 use WC_Settings_Page;
 
@@ -18,7 +19,7 @@ defined( 'ABSPATH' ) || exit;
 class WC_Settings_Option_Tab extends WC_Settings_Page {
 
 	/**
-	 * Newspack Tecnavia Integration e-edition endpoint URL.
+	 * Newspack Tecnavia Integration e-edition URL endpoint.
 	 *
 	 * @var string
 	 */
@@ -53,46 +54,18 @@ class WC_Settings_Option_Tab extends WC_Settings_Page {
 	private $tecnavia_permissions_option;
 
 	/**
-	 * All registered users.
-	 *
-	 * @var string
-	 */
-	private $np_tecnavia_access_setting_all_registered_users_key;
-
-	/**
-	 * Allowed roles.
-	 *
-	 * @var string
-	 */
-	private $np_tecnavia_access_setting_allowed_roles_key;
-
-	/**
-	 * Allowed subscriptions.
-	 *
-	 * @var string
-	 */
-	private $np_tecnavia_access_setting_allowed_subscriptions_key;
-
-	/**
-	 * Allowed memberships.
-	 *
-	 * @var string
-	 */
-	private $np_tecnavia_access_setting_allowed_memberships_key;
-
-	/**
 	 * Version of the Tecnavia assets.
 	 *
 	 * @var string
 	 */
-	const NEWSPACK_TECNAVIA_ASSETS_VERSION = '1.0';
+	const ASSETS_VERSION = '1.0';
 
 	/**
 	 * Tab ID.
 	 *
 	 * @var string
 	 */
-	const NEWSPACK_TECNAVIA_SETTINGS_TAB = 'newspack-tecnavia-integration-settings';
+	const NP_TECNAVIA_SETTINGS_TAB = 'newspack-tecnavia-integration-settings';
 
 	/**
 	 * Constructor.
@@ -102,10 +75,6 @@ class WC_Settings_Option_Tab extends WC_Settings_Page {
 	 * @param string $e_edition_endpoint_link_label Newspack Tecnavia Integration e-edition endpoint link label.
 	 * @param string $fallback_page_id_option Newspack Tecnavia Integration fallback page ID.
 	 * @param string $tecnavia_permissions_option Newspack Tecnavia Integration permissions.
-	 * @param string $np_tecnavia_access_setting_all_registered_users_key All registered users.
-	 * @param string $np_tecnavia_access_setting_allowed_roles_key Allowed roles.
-	 * @param string $np_tecnavia_access_setting_allowed_subscriptions_key Allowed subscriptions.
-	 * @param string $np_tecnavia_access_setting_allowed_memberships_key Allowed memberships.
 	 */
 	public function __construct(
 		$e_edition_endpoint_url_option,
@@ -113,10 +82,6 @@ class WC_Settings_Option_Tab extends WC_Settings_Page {
 		$e_edition_endpoint_link_label,
 		$fallback_page_id_option,
 		$tecnavia_permissions_option,
-		$np_tecnavia_access_setting_all_registered_users_key,
-		$np_tecnavia_access_setting_allowed_roles_key,
-		$np_tecnavia_access_setting_allowed_subscriptions_key,
-		$np_tecnavia_access_setting_allowed_memberships_key
 	) {
 		/**
 		 * Initialize constants.
@@ -128,17 +93,9 @@ class WC_Settings_Option_Tab extends WC_Settings_Page {
 		$this->tecnavia_permissions_option   = $tecnavia_permissions_option;
 
 		/**
-		 * Initialize access settings constants.
-		 */
-		$this->np_tecnavia_access_setting_all_registered_users_key = $np_tecnavia_access_setting_all_registered_users_key;
-		$this->np_tecnavia_access_setting_allowed_roles_key        = $np_tecnavia_access_setting_allowed_roles_key;
-		$this->np_tecnavia_access_setting_allowed_subscriptions_key = $np_tecnavia_access_setting_allowed_subscriptions_key;
-		$this->np_tecnavia_access_setting_allowed_memberships_key   = $np_tecnavia_access_setting_allowed_memberships_key;
-
-		/**
 		 * Define the tab name and label
 		 */
-		$this->id    = self::NEWSPACK_TECNAVIA_SETTINGS_TAB;
+		$this->id    = self::NP_TECNAVIA_SETTINGS_TAB;
 		$this->label = __( 'Newspack Tecnavia Integration', 'newspack-tecnavia-integration' );
 
 		/**
@@ -164,13 +121,14 @@ class WC_Settings_Option_Tab extends WC_Settings_Page {
 	 */
 	public function get_settings() {
 		/**
-		 * Define the settings keys.
-		 * Store the access settings as an array under a single option ( $tecnavia_permissions_option ).
+		 * Construct the access settings ids.
+		 * Ids are constructed to be used as array keys in the permissions option.
+		 * It will store the access settings as an array under a single option ( $tecnavia_permissions_option ).
 		 */
-		$all_registered_users  = '[' . $this->np_tecnavia_access_setting_all_registered_users_key . ']';
-		$allowed_roles         = '[' . $this->np_tecnavia_access_setting_allowed_roles_key . ']';
-		$allowed_subscriptions = '[' . $this->np_tecnavia_access_setting_allowed_subscriptions_key . ']';
-		$allowed_memberships   = '[' . $this->np_tecnavia_access_setting_allowed_memberships_key . ']';
+		$all_registered_users_id  = $this->tecnavia_permissions_option . '[' . Settings::ALL_REGISTERED_USERS_ACCESS_KEY . ']';
+		$allowed_roles_id         = $this->tecnavia_permissions_option . '[' . Settings::ALLOWED_ROLES_ACCESS_KEY . ']';
+		$allowed_subscription_id  = $this->tecnavia_permissions_option . '[' . Settings::ALLOWED_SUBSCRIPTIONS_ACCESS_KEY . ']';
+		$allowed_memberships_id   = $this->tecnavia_permissions_option . '[' . Settings::ALLOWED_MEMBERSHIPS_ACCESS_KEY . ']';
 
 		/**
 		 * Settings for the Tecnavia Integration
@@ -222,13 +180,13 @@ class WC_Settings_Option_Tab extends WC_Settings_Page {
 				'desc'  => __( 'Define the criteria for reader access to Tecnavia.', 'newspack-tecnavia-integration' ),
 				'id'    => 'np_wc_tecnavia_access_settings',
 			),
-			
+
 			// Checkbox: All registered users have access.
 			array(
 				'title'             => __( 'Allow all Registered Users', 'newspack-tecnavia-integration' ),
 				'type'              => 'checkbox',
 				'desc'              => __( 'Grant access to all registered users. NOTE: This will overrule other settings.', 'newspack-tecnavia-integration' ),
-				'id'                => $this->tecnavia_permissions_option . $all_registered_users,
+				'id'                => $all_registered_users_id,
 				'custom_attributes' => array(
 					'data-dependency' => true,
 				),
@@ -240,12 +198,12 @@ class WC_Settings_Option_Tab extends WC_Settings_Page {
 			'title'             => __( 'Allowed Roles', 'newspack-tecnavia-integration' ),
 			'type'              => 'multiselect',
 			'desc'              => __( 'Select roles that have access.', 'newspack-tecnavia-integration' ),
-			'id'                => $this->tecnavia_permissions_option . $allowed_roles,
+			'id'                => $allowed_roles_id,
 			'class'             => 'wc-enhanced-select',
 			'options'           => $this->get_roles_options(),
 			'css'               => 'min-width:600px;',
 			'custom_attributes' => array(
-				'data-dependent-on' => $this->tecnavia_permissions_option . $all_registered_users,
+				'data-dependent-on' => $all_registered_users_id,
 			),
 		);
 
@@ -255,12 +213,12 @@ class WC_Settings_Option_Tab extends WC_Settings_Page {
 				'title'             => __( 'By Woo Subscription', 'newspack-tecnavia-integration' ),
 				'type'              => 'multiselect',
 				'desc'              => __( 'Select WooCommerce Subscriptions that grant access.', 'newspack-tecnavia-integration' ),
-				'id'                => $this->tecnavia_permissions_option . $allowed_subscriptions,
+				'id'                => $allowed_subscription_id,
 				'class'             => 'wc-enhanced-select',
 				'options'           => $this->get_woocommerce_subscription_products_options(),
 				'css'               => 'min-width:600px;',
 				'custom_attributes' => array(
-					'data-dependent-on' => $this->tecnavia_permissions_option . $all_registered_users,
+					'data-dependent-on' => $all_registered_users_id,
 				),
 			);
 		}
@@ -271,12 +229,12 @@ class WC_Settings_Option_Tab extends WC_Settings_Page {
 				'title'             => __( 'By Woo Membership', 'newspack-tecnavia-integration' ),
 				'type'              => 'multiselect',
 				'desc'              => __( 'Select WooCommerce Memberships that grant access.', 'newspack-tecnavia-integration' ),
-				'id'                => $this->tecnavia_permissions_option . $allowed_memberships,
+				'id'                => $allowed_memberships_id,
 				'class'             => 'wc-enhanced-select',
 				'options'           => $this->get_woocommerce_memberships_options(),
 				'css'               => 'min-width:600px;',
 				'custom_attributes' => array(
-					'data-dependent-on' => $this->tecnavia_permissions_option . $all_registered_users,
+					'data-dependent-on' => $all_registered_users_id,
 				),
 			);
 		}
@@ -287,7 +245,7 @@ class WC_Settings_Option_Tab extends WC_Settings_Page {
 			'id'   => 'np_wc_tecnavia_access_settings',
 		);
 
-		return apply_filters( 'woocommerce_get_settings_' . $this->id, $settings );
+		return $settings;
 	}
 
 	/**
@@ -310,9 +268,6 @@ class WC_Settings_Option_Tab extends WC_Settings_Page {
 
 		// Save the settings.
 		WC_Admin_Settings::save_fields( $settings );
-
-		// Trigger an action hook.
-		do_action( 'woocommerce_update_options_' . $this->id );
 	}
 
 	/**
@@ -403,13 +358,13 @@ class WC_Settings_Option_Tab extends WC_Settings_Page {
 		if (
 			'woocommerce_page_wc-settings' === $hook &&
 			! empty( $current_tab )
-			&& self::NEWSPACK_TECNAVIA_SETTINGS_TAB === $current_tab
+			&& self::NP_TECNAVIA_SETTINGS_TAB === $current_tab
 		) {
 			wp_enqueue_script(
 				'newspack-tecnavia-integration-admin',
 				$src_dir,
 				[],
-				self::NEWSPACK_TECNAVIA_ASSETS_VERSION,
+				self::ASSETS_VERSION,
 				true
 			);
 		}

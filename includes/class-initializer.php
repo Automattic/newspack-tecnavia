@@ -19,10 +19,7 @@ class Initializer {
 		// Setup Hooks & Filters.
 		add_action( 'admin_notices', array( __CLASS__, 'show_admin_notice__error' ) );
 
-		// Initialize classes only when all dependencies are met.
-		if ( self::has_valid_dependencies() ) {
-			Settings::init();
-		}
+		Settings::init();
 	}
 
 	/**

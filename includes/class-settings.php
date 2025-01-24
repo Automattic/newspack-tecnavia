@@ -28,10 +28,10 @@ class Settings {
 	/**
 	 * Access settings constants.
 	 */
-	const NP_TECNAVIA_ACCESS_SETTING_ALL_REGISTERED_USERS_KEY  = 'all_registered_users';
-	const NP_TECNAVIA_ACCESS_SETTING_ALLOWED_ROLES_KEY         = 'allowed_roles';
-	const NP_TECNAVIA_ACCESS_SETTING_ALLOWED_SUBSCRIPTIONS_KEY = 'allowed_subscription_products';
-	const NP_TECNAVIA_ACCESS_SETTING_ALLOWED_MEMBERSHIPS_KEY   = 'allowed_memberships';
+	const ALL_REGISTERED_USERS_ACCESS_KEY  = 'all_registered_users';
+	const ALLOWED_ROLES_ACCESS_KEY         = 'allowed_roles';
+	const ALLOWED_SUBSCRIPTIONS_ACCESS_KEY = 'allowed_subscription_products';
+	const ALLOWED_MEMBERSHIPS_ACCESS_KEY   = 'allowed_memberships';
 
 	/**
 	 * Runs the initialization.
@@ -59,11 +59,7 @@ class Settings {
 			self::TECNAVIA_URL_OPTION,
 			self::E_EDITION_ENDPOINT_LINK_LABEL,
 			self::FALLBACK_PAGE_ID_OPTION,
-			self::TECNAVIA_PERMISSIONS_OPTION,
-			self::NP_TECNAVIA_ACCESS_SETTING_ALL_REGISTERED_USERS_KEY,
-			self::NP_TECNAVIA_ACCESS_SETTING_ALLOWED_ROLES_KEY,
-			self::NP_TECNAVIA_ACCESS_SETTING_ALLOWED_SUBSCRIPTIONS_KEY,
-			self::NP_TECNAVIA_ACCESS_SETTING_ALLOWED_MEMBERSHIPS_KEY
+			self::TECNAVIA_PERMISSIONS_OPTION
 		);
 
 		// Return the settings.
