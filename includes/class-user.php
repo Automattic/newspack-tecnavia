@@ -123,9 +123,73 @@ class User {
 	 * @return bool
 	 */
 	public static function check_user_tecnavia_access( $user_id ) {
-		// Perform checks to see if the user has access to Tecnavia.
-		// @TODO: Implement this method.
+		// Get the tecnavia access permissions.
+		$tecnavia_access_permissions = Settings::get_tecnavia_access_permissions();
 
-		return true;
+		/**
+		 * 1. Check if all registered users have access.
+		 */
+		$all_registered_users_have_access = 'yes' === $tecnavia_access_permissions[ Settings::ALL_REGISTERED_USERS_ACCESS_KEY ] ? true : false;
+
+		// Since all registered users have access, return true.
+		if ( $all_registered_users_have_access ) {
+			return true;
+		}
+
+		/**
+		 * 2. Check if the user's role has access.
+		 */
+		$allowed_roles = $tecnavia_access_permissions[ Settings::ALLOWED_ROLES_ACCESS_KEY ];
+		$user_object   = get_userdata( $user_id );
+		$user_role     = array_shift( $user_object->roles );
+
+		// Check if the user has access based on their role.
+		if ( ! empty( $user_roles ) && ! empty( $allowed_roles ) ) {
+			foreach ( $allowed_roles as $allowed_role ) {
+				if ( $user_role === $allowed_role ) {
+					return true;
+				}
+			}
+		}
+
+		/**
+		 * 3. Check if the user has access based on their subscription.
+		 * Note: This check is only applicable if the WooCommerce Subscriptions plugin is active.
+		 */
+		if ( class_exists( 'WC_Subscriptions' ) ) {
+			// Get the allowed subscription product IDs.
+			$allowed_subscriptions_product_ids = array_map( 'intval', $tecnavia_access_permissions[ Settings::ALLOWED_SUBSCRIPTIONS_ACCESS_KEY ] );
+
+			// Check if the user has active subscription to any of the allowed subscription product.
+			if ( ! empty( $allowed_subscriptions_product_ids ) ) {
+				foreach ( $allowed_subscriptions_product_ids as $product_id ) {
+					if ( wcs_user_has_subscription( $user_id, $product_id, 'active' ) ) {
+						return true;
+					}
+				}
+			}
+		}
+
+		/**
+		 * 4. Check if the user has access based on their membership.
+		 * Note: This check is only applicable if the WooCommerce Memberships plugin is active.
+		 */
+		if ( class_exists( 'WC_Memberships' ) ) {
+			// Get the allowed membership plan IDs.
+			$allowed_membership_ids = array_map( 'intval', $tecnavia_access_permissions[ Settings::ALLOWED_MEMBERSHIPS_ACCESS_KEY ] );
+			$user_memberships       = wc_memberships_get_user_active_memberships( $user_id );
+
+			// Check if the user has active membership to any of the allowed memberships.
+			if ( ! empty( $user_memberships ) && ! empty( $allowed_membership_ids ) ) {
+				foreach ( $user_memberships as $membership ) {
+					if ( in_array( $membership->plan_id, $allowed_membership_ids, true ) ) {
+						return true;
+					}
+				}
+			}
+		}
+
+		// If none of the checks passed, return false.
+		return false;
 	}
 }
