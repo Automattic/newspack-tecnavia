@@ -18,6 +18,8 @@ class Initializer {
 	public static function init() {
 		// Setup Hooks & Filters.
 		add_action( 'admin_notices', array( __CLASS__, 'show_admin_notice__error' ) );
+
+		Settings::init();
 	}
 
 	/**
