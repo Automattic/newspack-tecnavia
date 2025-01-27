@@ -144,7 +144,7 @@ class User {
 		$user_role     = array_shift( $user_object->roles );
 
 		// Check if the user has access based on their role.
-		if ( ! empty( $user_roles ) && ! empty( $allowed_roles ) ) {
+		if ( ! empty( $user_role ) && ! empty( $allowed_roles ) ) {
 			foreach ( $allowed_roles as $allowed_role ) {
 				if ( $user_role === $allowed_role ) {
 					return true;
