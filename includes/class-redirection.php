@@ -66,7 +66,7 @@ class Redirection {
 
 		// Check if the user is logged in and has permission to access Tecnavia.
 		if ( ! is_user_logged_in() ) {
-			wp_safe_redirect( wp_login_url( get_permalink() ) );
+			wp_safe_redirect( wp_login_url( Settings::get_e_edition_endpoint_url() ) );
 			exit;
 		} elseif ( ! User::check_user_tecnavia_access( get_current_user_id() ) ) {
 			// Get fallback page ID.
