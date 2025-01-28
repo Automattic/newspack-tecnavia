@@ -34,6 +34,13 @@ class Settings {
 	const ALLOWED_MEMBERSHIPS_ACCESS_KEY   = 'allowed_memberships';
 
 	/**
+	 * Version of the Tecnavia assets.
+	 *
+	 * @var string
+	 */
+	const ASSETS_VERSION = '1.0';
+
+	/**
 	 * Runs the initialization.
 	 */
 	public static function init() {
@@ -41,6 +48,7 @@ class Settings {
 		add_filter( 'woocommerce_get_settings_pages', array( __CLASS__, 'add_wc_settings_page' ) );
 		add_filter( 'woocommerce_account_menu_items', array( __CLASS__, 'add_wc_account_menu_item' ), 20, 1 );
 		add_filter( 'woocommerce_get_endpoint_url', array( __CLASS__, 'add_wc_endpoint_url' ), 10, 4 );
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_account_styles' ) );
 	}
 
 	/**
@@ -108,6 +116,22 @@ class Settings {
 		}
 
 		return $e_edition_url;
+	}
+
+	/**
+	 * Add custom CSS to the settings page.
+	 */
+	public static function enqueue_account_styles() {
+		if ( ! is_account_page() ) {
+			return;
+		}
+
+		wp_enqueue_style(
+			'np-tecnavia-my-account-css',
+			plugins_url( 'src/css/account.css', NEWSPACK_TECNAVIA_INTEGRATION_PLUGIN_FILE ),
+			[],
+			self::ASSETS_VERSION
+		);
 	}
 
 	/**

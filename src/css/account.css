@@ -1,0 +1,7 @@
+.woocommerce-MyAccount-navigation ul li.woocommerce-MyAccount-navigation-link--e-edition a::after{
+	content: url(../media/link.svg);
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	vertical-align: bottom;
+}
