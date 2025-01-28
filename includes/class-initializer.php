@@ -32,11 +32,8 @@ class Initializer {
 	 */
 	public static function has_valid_dependencies() {
 		if ( ! DependencyChecker::is_wc_installed()
-			|| ! DependencyChecker::is_wc_active()
 			|| ! DependencyChecker::is_wc_memberships_installed()
-			|| ! DependencyChecker::is_wc_memberships_active()
 			|| ! DependencyChecker::is_wc_subscriptions_installed()
-			|| ! DependencyChecker::is_wc_subscriptions_active()
 		) {
 			return false;
 		}
@@ -56,17 +53,11 @@ class Initializer {
 		);
 
 		if ( ! DependencyChecker::is_wc_installed() ) {
-			$plugin_notice = '<b>Newspack Tecnavi Integration</b> plugin requires <b>WooCommerce</b> to be installed, active and configured.';
-		} elseif ( ! DependencyChecker::is_wc_active() ) {
-			$plugin_notice = '<b>Newspack Tecnavi Integration</b> plugin requires <b>WooCommerce</b> to be active. Open <a href="' . esc_url( admin_url( 'plugins.php?plugin_status=inactive' ) ) . '">Plugins Page</a>.';
+			$plugin_notice = '<b>Newspack Tecnavia Integration</b> plugin requires <b>WooCommerce</b> to be installed, active and configured.';
 		} elseif ( ! DependencyChecker::is_wc_memberships_installed() ) {
-			$plugin_notice = '<b>Newspack Tecnavi Integration</b> plugin requires <b>WooCommerce Memberships</b> to be installed, active and configured.';
-		} elseif ( ! DependencyChecker::is_wc_memberships_active() ) {
-			$plugin_notice = '<b>Newspack Tecnavi Integration</b> plugin requires <b>WooCommerce Memberships</b> to be active. Open <a href="' . esc_url( admin_url( 'plugins.php?plugin_status=inactive' ) ) . '">Plugins Page</a>.';
+			$plugin_notice = '<b>Newspack Tecnavia Integration</b> plugin requires <b>WooCommerce Memberships</b> to be installed, active and configured.';
 		} elseif ( ! DependencyChecker::is_wc_subscriptions_installed() ) {
-			$plugin_notice = '<b>Newspack Tecnavi Integration</b> plugin requires <b>WooCommerce Subscriptions</b> to be installed, active and configured.';
-		} elseif ( ! DependencyChecker::is_wc_subscriptions_active() ) {
-			$plugin_notice = '<b>Newspack Tecnavi Integration</b> plugin requires <b>WooCommerce Subscriptions</b> to be active. Open <a href="' . esc_url( admin_url( 'plugins.php?plugin_status=inactive' ) ) . '">Plugins Page</a>.';
+			$plugin_notice = '<b>Newspack Tecnavia Integration</b> plugin requires <b>WooCommerce Subscriptions</b> to be installed, active and configured.';
 		}
 
 		if ( ! empty( $plugin_notice ) ) {
