@@ -64,36 +64,26 @@ class Redirection {
 			return $template;
 		}
 
-		// Check if the user is logged in and has permission to access Tecnavia.
-		if ( ! is_user_logged_in() ) {
-			wp_safe_redirect( wp_login_url( Settings::get_e_edition_endpoint_url() ) );
-			exit;
-		} elseif ( ! User::check_user_tecnavia_access( get_current_user_id() ) ) {
-			// Get fallback page ID.
-			$fallback_page_id = Settings::get_fallback_page_id();
+		$fallback_page_url = get_permalink( Settings::get_fallback_page_id() );
 
-			// Check if fallback page is set.
-			if ( empty( $fallback_page_id ) ) {
-				wp_safe_redirect( home_url() );
+		if ( empty( $fallback_page_url ) ) {
+			$fallback_page_url = home_url();
+		}
+
+		// Check if the user is logged in and has permission to access Tecnavia, then redirect.
+		if ( is_user_logged_in() && User::check_user_tecnavia_access( get_current_user_id() ) ) {
+			$tecnavia_url = User::get_user_tecnavia_url( get_current_user_id() );
+
+			if ( empty( $tecnavia_url ) ) {
+				wp_safe_redirect( $fallback_page_url, 301 );
 				exit;
 			}
 
-			// Redirect to the fallback page.
-			wp_safe_redirect( get_permalink( $fallback_page_id ), 301 );
+			wp_safe_redirect( $tecnavia_url, 301 );
 			exit;
 		}
 
-		// Get the user's Tecnavia URL.
-		$tecnavia_url = User::get_user_tecnavia_url( get_current_user_id() );
-
-		// If the Tecnavia URL is empty, return.
-		if ( empty( $tecnavia_url ) ) {
-			wp_safe_redirect( home_url() );
-			exit;
-		}
-
-		// Redirect to Tecnavia.
-		wp_safe_redirect( $tecnavia_url, 301 );
+		wp_safe_redirect( $fallback_page_url, 301 );
 		exit;
 	}
 
