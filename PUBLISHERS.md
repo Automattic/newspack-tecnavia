@@ -7,10 +7,9 @@ This Plugin has the following plugins as dependencies:-
 
 1. Newspack.
 2. Woocommerce.
-3. Woocommerce Subscriptions.
-4. Woocommerce Memberships.
+3. Woocommerce Subscriptions or Woocommerce Memberships or both (If you want to restrict access to the e-Edition behind a subscriptions or memberships).
 
-Please install, activate and configure the above plugins before activating and configuing this plugin.
+Please install, activate and configure the above plugins before activating and configuring this plugin.
 
 ## Installation
 1. **Download the Plugin**:
@@ -32,10 +31,11 @@ Please install, activate and configure the above plugins before activating and c
 
 2. **Add Tecnavia Configurations**:
    - **E-edition URL Endpoint**: This will be the endpoint on your site which will lead users to the e-Edition.
-   For example:- an endpoint could be `e-edition`. This would mean that the e-Edition URL would be `https://your-site.com/e-edition`.
-   - **E-edition Endpoint Link Label**: This will be the text of the link that users will click on to access the e-Edition. This link will be displayed on the users `my-account` page.
+      - For example:- an endpoint could be `e-edition`. This would mean that the e-Edition URL would be `https://your-site.com/e-edition`.
+      - You can add this URL to any menu in your site (or really anywhere) as an entry point for readers to access the e-edition. (if the reader is not logged in or doesn't have access to the e-edition based on the rules you set, they will be redirected to the fallback page).
+   - **E-edition Endpoint Link Label**: This will be the label of the link that is automatically added to the "My Account" menu in the readers' "My Account" page.
    - **Tecnavia URL**: This is the URL of your Tecnavia e-Edition. The user will be redirected to this URL when they click on the e-Edition link.
-   - **Fallback Page**: Select the page where users will be redirected if they do not have access to the e-Edition. You can use this page to funnel users into e-edition. For instance, it contain information on which memberships/subscriptions could get you an e-edition access.
+   - **Fallback Page**: Select the page where users will be redirected if they do not have access to the e-Edition. You can use this page to funnel users into e-edition. For instance, it can contain information about the e-Edition and the CTAs to buy access to it.
 
    ![Integration Settings](https://github.com/user-attachments/assets/2126ecc2-2a4c-4c48-a590-160c9ce4d61e)
 
@@ -43,9 +43,9 @@ Please install, activate and configure the above plugins before activating and c
    - The Plugin allows you to restrict access to the e-Edition based on your users role, memberships or subscriptions.
    - Following are the options to configure user's access to the e-Edition:
      - **All registered users**: If this option is selected, all registered users will have access to the e-Edition. Regardless of their role, membership or subscription.
-	 - **User Role**: Select the user role that will have access to the e-Edition.
-	 - **Membership**: Select the memberships that will grant access to the e-Edition. If a user has any of the selected memberships, the user will be granted access to the e-Edition.
-	 - **Subscription**: Select the subscription products that will grant access to the e-Edition. If a user has any of the selected subscription product, the user will be granted access to the e-Edition.
+	 - **User Roles**: Select the user roles that will have access to the e-Edition.
+	 - **Memberships**: Select the membership plans that will grant access to the e-Edition. If a user has any of the selected plans, the user will be granted access to the e-Edition.
+	 - **Subscriptions**: Select the subscription products that will grant access to the e-Edition. If a user has any of the selected subscription products, the user will be granted access to the e-Edition.
 
 	- Note: The above options are inclusive, meaning that if a user has a role, membership or subscription that is selected, they will have access to the e-Edition. The user does not need to have all of the configured options to access the e-Edition.
 
