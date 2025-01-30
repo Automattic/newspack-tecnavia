@@ -44,20 +44,42 @@ class Initializer {
 	 * Displays admin notice summarizing error.
 	 */
 	public static function show_admin_notice__error() {
-		$plugin_notice = '';
-		$allowed_html  = array(
-			'a' => array(
+		$plugin_notice    = '';
+		$inactive_plugins = array();
+		$allowed_html     = array(
+			'a'      => array(
 				'href' => array(),
 			),
-			'b' => array(),
+			'strong' => array(),
 		);
 
 		if ( ! DependencyChecker::is_wc_installed() ) {
-			$plugin_notice = '<b>Newspack Tecnavia Integration</b> plugin requires <b>WooCommerce</b> to be installed, active and configured.';
-		} elseif ( ! DependencyChecker::is_wc_memberships_installed() ) {
-			$plugin_notice = '<b>Newspack Tecnavia Integration</b> plugin requires <b>WooCommerce Memberships</b> to be installed, active and configured.';
-		} elseif ( ! DependencyChecker::is_wc_subscriptions_installed() ) {
-			$plugin_notice = '<b>Newspack Tecnavia Integration</b> plugin requires <b>WooCommerce Subscriptions</b> to be installed, active and configured.';
+			$inactive_plugins[] = 'WooCommerce';
+		}
+
+		if ( ! DependencyChecker::is_wc_memberships_installed() ) {
+			$inactive_plugins[] = 'WooCommerce Memberships';
+		}
+
+		if ( ! DependencyChecker::is_wc_subscriptions_installed() ) {
+			$inactive_plugins[] = 'WooCommerce Subscriptions';
+		}
+
+		if ( ! empty( $inactive_plugins ) ) {
+			// Based on the number of inactive plugins, display the appropriate message.
+			if ( 1 === count( $inactive_plugins ) ) {
+				$plugin_notice = sprintf(
+					/* translators: %s: Plugin name. */
+					esc_html__( 'Newspack Tecnavia Integration requires %s to be installed and activated.', 'newspack-tecnavia-integration' ),
+					'<strong>' . esc_html( $inactive_plugins[0] ) . '</strong>'
+				);
+			} else {
+				$plugin_notice = sprintf(
+					/* translators: %s: Plugin names. */
+					esc_html__( 'Newspack Tecnavia Integration requires %s to be installed and activated.', 'newspack-tecnavia-integration' ),
+					'<strong>' . esc_html( implode( ', ', $inactive_plugins ) ) . '</strong>'
+				);
+			}
 		}
 
 		if ( ! empty( $plugin_notice ) ) {
