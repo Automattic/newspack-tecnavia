@@ -8,11 +8,6 @@
 
 namespace Newspack\TecnaviaIntegration;
 
-// Check if needed functions exists - if not, require them.
-if ( ! function_exists( 'get_plugins' ) || ! function_exists( 'is_plugin_active' ) ) {
-	require_once ABSPATH . 'wp-admin/includes/plugin.php';
-}
-
 /**
  * Provide functionality to check the plugin's dependencies on other plugin.
  *
