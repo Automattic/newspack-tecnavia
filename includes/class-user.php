@@ -140,6 +140,10 @@ class User {
 	 * @return bool
 	 */
 	public static function check_user_tecnavia_access( $user_id ) {
+		if ( empty( $user_id ) ) {
+			return false;
+		}
+
 		// Get the tecnavia access permissions.
 		$tecnavia_access_permissions = Settings::get_tecnavia_access_permissions();
 
@@ -158,12 +162,12 @@ class User {
 		 */
 		$allowed_roles = $tecnavia_access_permissions[ Settings::ALLOWED_ROLES_ACCESS_KEY ];
 		$user_object   = get_userdata( $user_id );
-		$user_role     = array_shift( $user_object->roles );
+		$user_roles    = $user_object->roles;
 
 		// Check if the user has access based on their role.
-		if ( ! empty( $user_role ) && ! empty( $allowed_roles ) ) {
-			foreach ( $allowed_roles as $allowed_role ) {
-				if ( $user_role === $allowed_role ) {
+		if ( ! empty( $user_roles ) && ! empty( $allowed_roles ) ) {
+			foreach ( $user_roles as $user_role ) {
+				if ( in_array( $user_role, $allowed_roles, true ) ) {
 					return true;
 				}
 			}
