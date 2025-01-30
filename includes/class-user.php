@@ -43,9 +43,7 @@ class User {
 		$token = get_user_meta( $user->ID, self::TECNAVIA_TOKEN_META_FIELD, true );
 
 		// If the user token is empty or expired, create a new one.
-		if ( empty( $token ) || self::is_user_token_expired( $user->ID ) ) {
-			$token = self::create_user_token( $user->ID );
-		}
+		$token = self::maybe_refresh_token( $token, $user->ID );
 	}
 
 	/**
@@ -75,7 +73,26 @@ class User {
 	 * @return string
 	 */
 	public static function get_user_token( $user_id ) {
-		return get_user_meta( $user_id, self::TECNAVIA_TOKEN_META_FIELD, true );
+		$token = get_user_meta( $user_id, self::TECNAVIA_TOKEN_META_FIELD, true );
+
+		$token = self::maybe_refresh_token( $token, $user_id );
+
+		return $token;
+	}
+
+	/**
+	 * Maybe refreshes the user token.
+	 *
+	 * @param string $token The user token.
+	 * @param int    $user_id The user ID.
+	 * @return string
+	 */
+	public static function maybe_refresh_token( $token, $user_id ) {
+		if ( empty( $token ) || self::is_user_token_expired( $user_id ) ) {
+			$token = self::create_user_token( $user_id );
+		}
+
+		return $token;
 	}
 
 	/**
