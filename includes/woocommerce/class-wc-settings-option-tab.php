@@ -54,13 +54,6 @@ class WC_Settings_Option_Tab extends WC_Settings_Page {
 	private $tecnavia_permissions_option;
 
 	/**
-	 * Version of the Tecnavia assets.
-	 *
-	 * @var string
-	 */
-	const ASSETS_VERSION = '1.0';
-
-	/**
 	 * Tab ID.
 	 *
 	 * @var string
@@ -364,7 +357,7 @@ class WC_Settings_Option_Tab extends WC_Settings_Page {
 				'newspack-tecnavia-integration-admin',
 				$src_dir,
 				[],
-				self::ASSETS_VERSION,
+				Settings::ASSETS_VERSION,
 				true
 			);
 		}

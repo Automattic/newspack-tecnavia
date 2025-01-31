@@ -20,6 +20,9 @@ class Initializer {
 		add_action( 'admin_notices', array( __CLASS__, 'show_admin_notice__error' ) );
 
 		Settings::init();
+		User::init();
+		Redirection::init();
+		REST_Controller::init();
 	}
 
 	/**
