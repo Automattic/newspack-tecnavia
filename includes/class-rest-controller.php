@@ -76,7 +76,8 @@ class REST_Controller {
 		$server->send_header( 'Content-Type', 'text/xml' );
 
 		// Directly output the XML to skip the JSON encoding.
-		echo esc_xml( $result->data );
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $result->data;
 
 		return true;
 	}
