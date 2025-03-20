@@ -81,6 +81,10 @@ class Settings {
 	 * @return array
 	 */
 	public static function add_wc_account_menu_item( $items ) {
+		if ( ! User::check_user_tecnavia_access( get_current_user_id() ) ) {
+			return $items;
+		}
+
 		// Create the e-edition link.
 		$e_edition_link = array(
 			'e-edition' => self::get_e_edition_endpoint_link_label(),
@@ -106,6 +110,8 @@ class Settings {
 		if ( $endpoint !== 'e-edition' ) {
 			return $url;
 		}
+
+		return User::get_user_tecnavia_url( get_current_user_id() );
 
 		// Get the e-edition URL.
 		$e_edition_url = self::get_e_edition_endpoint_url();
